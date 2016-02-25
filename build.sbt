@@ -49,7 +49,6 @@ libraryDependencies ++= Seq(
   "org.json4s" %% "json4s-native" % versions.json4s,
   "org.sangria-graphql" %% "sangria" % versions.sangria,
 
-
   "com.twitter.finatra" %% "finatra-http" % versions.finatra % "test",
   "com.twitter.finatra" %% "finatra-jackson" % versions.finatra % "test",
   "com.twitter.inject" %% "inject-server" % versions.finatra % "test",

@@ -3,7 +3,7 @@ package com.logicalguess.controllers
 import javax.inject.{Inject, Singleton}
 
 import com.logicalguess.graphQL.SchemaDefinition
-import com.logicalguess.services.ItemService
+import com.logicalguess.services.{MemoryItemService, ItemService}
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.Controller
 import org.json4s.JsonAST.JString
@@ -19,7 +19,7 @@ import scala.concurrent.duration._
 import scala.util.{Failure, Success}
 
 @Singleton
-class GraphQLController @Inject()(itemService: ItemService)() extends Controller {
+class GraphQLController @Inject()(itemService: MemoryItemService)() extends Controller {
   val _awaitTimeout = 30.seconds
   val executor = Executor(
     schema = SchemaDefinition.ItemSchema,
