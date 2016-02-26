@@ -3,7 +3,6 @@ package com.logicalguess.feature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
-import com.logicalguess.ItemServer
 import com.logicalguess.domain.Item
 import com.twitter.finagle.http.Status._
 import com.twitter.finatra.http.test.{EmbeddedHttpServer, HttpTest}
@@ -12,6 +11,7 @@ import com.twitter.inject.server.{EmbeddedTwitterServer, FeatureTest}
 import org.junit.runner.RunWith
 import org.scalatest.{GivenWhenThen, BeforeAndAfterAll, BeforeAndAfterEach}
 import org.scalatest.junit.JUnitRunner
+import com.logicalguess.server.ItemServer
 
 /**
   * Created by logicalguess on 2/25/16.
