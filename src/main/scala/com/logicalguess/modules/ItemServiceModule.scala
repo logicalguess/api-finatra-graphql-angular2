@@ -19,7 +19,8 @@ object ItemServiceModule extends TwitterModule {
     println("------------------item service init-------------------")
     serviceType() match {
       case MEMORY_TYPE => new MemoryItemService()
-      case ELASTIC_TYPE => new ElasticSearchItemService(ElasticClientModule.provideElasticClient(), ElasticClientModule.timeout().toShort)
+      case ELASTIC_TYPE => new ElasticSearchItemService(
+        ElasticClientModule.provideElasticClient(), ElasticClientModule.timeout().toShort)
       case _ => throw new IllegalArgumentException("unknown service type")
     }
   }

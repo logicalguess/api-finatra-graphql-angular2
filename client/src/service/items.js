@@ -41,7 +41,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map', '../
                 ItemService.prototype.getItems = function () {
                     return this.http.get(this.serviceUrl + '?query=' + this.getItemsQuery)
                         .map(function (res) { return res.json().data.items; });
-                    //return Promise.resolve([{id: 1, title: 'abc'}]);
                 };
                 ItemService.prototype.save = function (item) {
                     console.log('creating', item);

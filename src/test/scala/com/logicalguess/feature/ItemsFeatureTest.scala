@@ -57,8 +57,6 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
         params = Map("title" -> "some item title", "desc" -> "some item desc"),
         andExpect = Created)
 
-
-
       Then("the item is created and returned")
       response.getStatusCode() shouldBe 201
       val content = response.getContentString()

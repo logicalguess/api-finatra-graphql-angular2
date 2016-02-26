@@ -19,6 +19,4 @@ import {ListItemsComponent} from './list';
   	{ path: '/new', name: 'CreateItem', component: ItemEditComponent}
 ])
 export class AppComponent {
-
-
 }

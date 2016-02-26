@@ -22,15 +22,9 @@ export class ItemService {
 		return 'mutation deleteItem { deleteItem(id: \\"' + id + '\\") }'
 	}
 
-
-
 	getItems() {
-
 		return this.http.get(this.serviceUrl + '?query=' + this.getItemsQuery)
 			.map(function (res) { return res.json().data.items; });
-
-		//return Promise.resolve([{id: 1, title: 'abc'}]);
-
 	}
 
 	save(item: Item) {
@@ -43,4 +37,5 @@ export class ItemService {
 		return this.http.post(this.serviceUrl, '{"mutation":"' + this.deleteItemCommand(item['id']) + '"}')
 			.map(res => res.json());
 	}
+
 }

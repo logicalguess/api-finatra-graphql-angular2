@@ -26,18 +26,21 @@ object SchemaDefinition {
   val DescArg = Argument("desc", StringType, description = "description of the item")
   val KeywordArg = Argument("keyword", OptionInputType(StringType), description = "keyword of filtering items")
 
+  val singleResolver: (Context[ItemService, Unit]) => Action[ItemService, Option[Item]] = ctx =>
+    ctx.ctx.getItem(ctx arg ID)
   val listResolver: (Context[ItemService, Unit]) => Action[ItemService, List[Item]] = ctx => ctx.ctx.getItems(ctx argOpt KeywordArg)
   val createResolver: (Context[ItemService, Unit]) => Action[ItemService, Item] = ctx =>
     ctx.ctx.addItem(ItemCreationModel(ctx arg TitleArg, ctx arg DescArg))
   val updateResolver: (Context[ItemService, Unit]) => Action[ItemService, Option[Item]] = ctx =>
     ctx.ctx.updateItem(Item(ctx arg ID, ctx arg TitleArg, ctx arg DescArg))
-  val deleteResolver: (Context[ItemService, Unit]) => Action[ItemService, String] = ctx => ctx.ctx.deleteItem(ctx arg ID)
+  val deleteResolver: (Context[ItemService, Unit]) => Action[ItemService, String] = ctx =>
+    ctx.ctx.deleteItem(ctx arg ID)
 
   val Query = ObjectType(
     "Query", fields[ItemService, Unit](
       Field("item", OptionType(ItemType),
         arguments = ID :: Nil,
-        resolve = ctx => ctx.ctx.getItem(ctx arg ID)),
+        resolve = singleResolver),
       Field("items", ListType(ItemType),
         arguments = KeywordArg :: Nil,
         resolve = listResolver)
