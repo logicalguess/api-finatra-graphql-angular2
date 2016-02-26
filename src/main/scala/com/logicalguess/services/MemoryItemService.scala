@@ -15,18 +15,18 @@ class MemoryItemService extends ItemService {
   object ItemRepo {
     var items = List(
       Item(
-        _id = UUID.randomUUID().toString,
+        id = UUID.randomUUID().toString,
         title = "The Matrix",
         desc = "complex stuff"),
       Item(
-        _id = UUID.randomUUID().toString,
+        id = UUID.randomUUID().toString,
         title = "The Godfather",
         desc = "simple stuff")
     )
   }
 
   override def getItem(id: String): Option[Item] = {
-    ItemRepo.items.find(_._id == id)
+    ItemRepo.items.find(_.id == id)
   }
 
   override def addItem(model: ItemCreationModel): Item = {
@@ -41,9 +41,9 @@ class MemoryItemService extends ItemService {
 
   override def deleteItem(id: String): String = {
     val item = getItem(id)
-    ItemRepo.items = ItemRepo.items.filter(_._id == id)
+    ItemRepo.items = ItemRepo.items.filter(_.id == id)
 //    item match {
-//      case Some(i) => Some(i._id)
+//      case Some(i) => Some(i.id)
 //      case None => None
 //    }
     id

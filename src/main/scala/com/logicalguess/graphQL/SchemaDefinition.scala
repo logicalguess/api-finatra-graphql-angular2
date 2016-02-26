@@ -14,7 +14,7 @@ object SchemaDefinition {
     fields[Unit, Item](
       Field("id", StringType,
         Some("The id of the item."),
-        resolve = _.value._id),
+        resolve = _.value.id),
       Field("title", StringType,
         Some("The title of the item."),
         resolve = _.value.title),
