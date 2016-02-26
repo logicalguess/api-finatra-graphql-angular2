@@ -27,7 +27,7 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
 
   "Post Controller" should {
 
-    "return the posts" in {
+    "return the items" in {
 
       Given("items exist in the database")
 
@@ -40,6 +40,23 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
 
       response.getStatusCode() shouldEqual 200
       items.length should be > 1
+    }
+
+    "create a new item" in {
+
+      When("The api receives a POST request with a valid item")
+      val response = server.httpPost(path = "/api/items/add",
+        postBody =
+          """
+             {"title": "some item title", "desc": "some item desc"}
+          """,
+        andExpect = Ok)
+
+      Then("the post is created and returned")
+      response.getStatusCode() shouldBe 200
+      val content = response.getContentString()
+      val item = objectMapper.readValue[Item](content)
+      item.title shouldBe "some item title"
     }
   }
 }

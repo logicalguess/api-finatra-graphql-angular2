@@ -42,7 +42,7 @@ class ElasticSearchItemService @Inject()
   }
 
   def updateItem(item: Item): Option[Item] = {
-    val req = update id item._id in _index / _type source item includeSource
+    val req = update id item.id in _index / _type source item includeSource
     //    val future = this.client.execute(req).map(rlt => rlt.getGetResult.sourceAsString)
     val resp: UpdateResponse = Await.result(this.elasticClient.execute(req), timeout.seconds)
     val map = resp.getGetResult.getFields
