@@ -41,7 +41,7 @@ class MemoryItemService extends ItemService {
 
   override def deleteItem(id: String): String = {
     val item = getItem(id)
-    ItemRepo.items = ItemRepo.items.filter(_.id == id)
+    ItemRepo.items = ItemRepo.items.filter(_.id != id)
     id
   }
 
