@@ -42,14 +42,12 @@ class MemoryItemService extends ItemService {
   override def deleteItem(id: String): String = {
     val item = getItem(id)
     ItemRepo.items = ItemRepo.items.filter(_.id == id)
-//    item match {
-//      case Some(i) => Some(i.id)
-//      case None => None
-//    }
     id
   }
 
   override def updateItem(item: Item): Option[Item] = {
-    None
+    val idx = ItemRepo.items.indexWhere(_.id == item.id)
+    ItemRepo.items = ItemRepo.items.updated(idx, item)
+    Some(item)
   }
 }

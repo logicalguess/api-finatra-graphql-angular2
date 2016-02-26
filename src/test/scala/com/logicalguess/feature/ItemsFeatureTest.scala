@@ -25,7 +25,7 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
 
   override val server = new EmbeddedHttpServer(new ItemServer)
 
-  "Post Controller" should {
+  "ItemController" should {
 
     "return the items" in {
 
@@ -61,6 +61,21 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
       item.title shouldBe "some item title"
 
       createdItemId = item.id
+    }
+
+    "update an existing item" in {
+      Given("an item exists")
+
+      When("The api receives a PUT request with a valid item")
+      val response = server.httpPut(path = "/api/items/update",
+        putBody = "{\"id\": \"" + createdItemId + "\", \"title\": \"updated title\", \"desc\": \"updated desc\"}"
+      )
+
+      Then("the item is updated")
+      response.getStatusCode() shouldBe 200
+      val content = response.getContentString()
+      val item = objectMapper.readValue[Item](content)
+      item.title shouldBe "updated title"
     }
 
     "delete a post" in {
