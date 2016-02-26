@@ -1,12 +1,10 @@
 package com.logicalguess.graphQL
 
 import com.logicalguess.domain.{Item, ItemCreationModel}
-import com.logicalguess.services.{MemoryItemService, ElasticSearchItemService}
+import com.logicalguess.services.{ItemService, MemoryItemService, ElasticSearchItemService}
 import sangria.schema._
 
 object SchemaDefinition {
-
-  type I = MemoryItemService
 
   val ItemType = ObjectType(
     "item",
@@ -28,15 +26,15 @@ object SchemaDefinition {
   val DescArg = Argument("desc", StringType, description = "description of the item")
   val KeywordArg = Argument("keyword", OptionInputType(StringType), description = "keyword of filtering items")
 
-  val listResolver: (Context[I, Unit]) => Action[I, List[Item]] = ctx => ctx.ctx.getItems(ctx argOpt KeywordArg)
-  val createResolver: (Context[I, Unit]) => Action[I, Item] = ctx =>
+  val listResolver: (Context[ItemService, Unit]) => Action[ItemService, List[Item]] = ctx => ctx.ctx.getItems(ctx argOpt KeywordArg)
+  val createResolver: (Context[ItemService, Unit]) => Action[ItemService, Item] = ctx =>
     ctx.ctx.addItem(ItemCreationModel(ctx arg TitleArg, ctx arg DescArg))
-  val updateResolver: (Context[I, Unit]) => Action[I, Option[Item]] = ctx =>
+  val updateResolver: (Context[ItemService, Unit]) => Action[ItemService, Option[Item]] = ctx =>
     ctx.ctx.updateItem(Item(ctx arg ID, ctx arg TitleArg, ctx arg DescArg))
-  val deleteResolver: (Context[I, Unit]) => Action[I, String] = ctx => ctx.ctx.deleteItem(ctx arg ID)
+  val deleteResolver: (Context[ItemService, Unit]) => Action[ItemService, String] = ctx => ctx.ctx.deleteItem(ctx arg ID)
 
   val Query = ObjectType(
-    "Query", fields[I, Unit](
+    "Query", fields[ItemService, Unit](
       Field("item", OptionType(ItemType),
         arguments = ID :: Nil,
         resolve = ctx => ctx.ctx.getItem(ctx arg ID)),
@@ -45,7 +43,7 @@ object SchemaDefinition {
         resolve = listResolver)
     ))
 
-  val Mutation = ObjectType("MutationRoot", fields[I, Unit](
+  val Mutation = ObjectType("MutationRoot", fields[ItemService, Unit](
     Field("addItem", OptionType(ItemType),
       arguments = TitleArg :: DescArg :: Nil,
       resolve = createResolver),

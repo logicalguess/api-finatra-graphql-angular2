@@ -1,8 +1,8 @@
 package com.logicalguess.domain
 
-import com.twitter.finatra.request.QueryParam
+import com.twitter.finatra.request.FormParam
 
 case class Item(id: String, title: String, desc: String)
 
-case class ItemCreationModel(title: String, desc: String)
+case class ItemCreationModel(@FormParam title: String, @FormParam desc: String)
 

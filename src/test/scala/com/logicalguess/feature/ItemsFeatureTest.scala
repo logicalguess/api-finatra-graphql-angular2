@@ -47,12 +47,17 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
     "create a new item" in {
 
       When("The api receives a POST request with a valid item")
-      val response = server.httpPost(path = "/api/items/add",
-        postBody =
-          """
-             {"title": "some item title", "desc": "some item desc"}
-          """,
+//      val response = server.httpPost(path = "/api/items/add",
+//        postBody =
+//          """
+//             {"title": "some item title", "desc": "some item desc"}
+//          """,
+//        andExpect = Created)
+      val response = server.httpFormPost(path = "/api/items/add",
+        params = Map("title" -> "some item title", "desc" -> "some item desc"),
         andExpect = Created)
+
+
 
       Then("the item is created and returned")
       response.getStatusCode() shouldBe 201
