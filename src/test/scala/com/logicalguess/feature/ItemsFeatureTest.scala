@@ -50,10 +50,10 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
           """
              {"title": "some item title", "desc": "some item desc"}
           """,
-        andExpect = Ok)
+        andExpect = Created)
 
       Then("the post is created and returned")
-      response.getStatusCode() shouldBe 200
+      response.getStatusCode() shouldBe 201
       val content = response.getContentString()
       val item = objectMapper.readValue[Item](content)
       item.title shouldBe "some item title"
