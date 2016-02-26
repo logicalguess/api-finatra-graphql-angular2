@@ -32,6 +32,7 @@
 ![ ](./slides/slides.016.png)
 
 References: 
+
 [http://twitter.github.io/finatra/user-guide/](http://twitter.github.io/finatra/user-guide)
 
 [https://github.com/eddieLiu69/finatra-sangria-elastic4s-example](https://github.com/eddieLiu69/finatra-sangria-elastic4s-example)
