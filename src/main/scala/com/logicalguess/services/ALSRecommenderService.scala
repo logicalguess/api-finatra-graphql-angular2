@@ -2,9 +2,12 @@ package com.logicalguess.services
 
 import javax.inject.{Inject, Singleton}
 
+import com.logicalguess.data.movielens.{MovieLens_100k, MovieLens_1m}
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rating}
 import org.apache.spark.rdd.RDD
+
+import scala.util.Random
 
 /**
   * Created by logicalguess on 2/26/16.
@@ -12,23 +15,20 @@ import org.apache.spark.rdd.RDD
 
 @Singleton
 class ALSRecommenderService @Inject()(sc: SparkContext) {
-  //TODO change state management
 
-  val movieLensHomeDir = "src/main/resources/ml-1m"
+  //TODO make data provider configurable
+  //val dataDir = "src/main/resources/ml-1m"
+  //val dataProvider = MovieLens_1m(sc, dataDir)
 
-  val ratings: RDD[(Long, Rating)] = getRatings
-  val items: RDD[(Int, String)] = getItems
-  val movies = items.collect.toMap
+  val dataDir = "src/main/resources/ml-100k"
+  val dataProvider = MovieLens_100k(sc, dataDir)
+
   val model: MatrixFactorizationModel = createModel
 
   def getRecommendationsForUser(userId: Int) = {
+    val movies = dataProvider.getProductNames()
     val candidates = sc.parallelize(movies.keys.toSeq)
 
-    // println("bestModel.get " + bestModel.get.predict(candidates.map((0, _))).take(20).foreach(println))
-    // println("bestModel " +  bestModel )
-    // use candidates.map((0, _)) returns an empty set.
-    // use candidates.map((1, _)) returns a recommend list set.
-    // it means the user real time data must be in the training set.
     model
       .predict(candidates.map((userId, _)))
       .collect
@@ -37,10 +37,13 @@ class ALSRecommenderService @Inject()(sc: SparkContext) {
   }
 
   def getItems(itemIds: List[Int]): List[String] = {
+    val movies = dataProvider.getProductNames()
     itemIds.map { id => movies(id)}
   }
 
   def createModel: MatrixFactorizationModel = {
+    val rand = new Random()
+    val ratings: RDD[(Long, Rating)] = dataProvider.getRatings().map { r => (rand.nextInt(10).toLong, r)}
     val numRatings = ratings.count
     // _._2 is the RDD ratings's Rating in the (Int, Rating) pairs
     // The Rating class is a wrapper around tuple (user: Int, product: Int, rating: Double)
@@ -132,36 +135,6 @@ class ALSRecommenderService @Inject()(sc: SparkContext) {
     println("The best model was trained with rank = " + bestRank + " and lambda = " + bestLambda
       + ", and numIter = " + bestNumIter + ", and its RMSE on the test set is " + testRmse + ".")
     bestModel.get
-  }
-
-  def getItems: RDD[(Int, String)] = {
-    val items = sc.textFile(movieLensHomeDir + "/movies.dat").map { line =>
-      val fields = line.split("::")
-      // MovieID::Title::Genres
-      // e.g.
-      // 1::Toy Story (1995)::Animation|Children's|Comedy
-      //  read in movie ids and titles only
-      // format: (movieId, movieName)
-      (fields(0).toInt, fields(1))
-    }
-    items
-  }
-
-  def getRatings: RDD[(Long, Rating)] = {
-    val ratings = sc.textFile(movieLensHomeDir + "/ratings.dat").map { line =>
-      val fields = line.split("::")
-      // UserID::MovieID::Rating::Timestamp
-      // e.g.
-      // 1::1193::5::978300760
-      // The RDD contains (Int, Rating) pairs.
-      // We only keep the last digit of the timestamp as a random key: = fields(3).toLong % 10
-      // The Rating class is a wrapper around tuple (user: Int, product: Int, rating: Double)
-      //      defined in org.apache.spark.mllib.recommendation package.
-      // format: (timestamp % 10, Rating(userId, movieId, rating))
-      //
-      (fields(3).toLong % 10, Rating(fields(0).toInt, fields(1).toInt, fields(2).toDouble))
-    }
-    ratings
   }
 
   /** Compute RMSE (Root Mean Squared Error). */

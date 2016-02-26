@@ -8,7 +8,7 @@ import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 
 object SparkContextModule extends TwitterModule {
-  private val master = flag("spark.master", "local[1]", "spark master")
+  private val master = flag("spark.master", "local[2]", "spark master")
   private val memory = flag("spark.executor.memory", "1g", "spark memory")
 
   @Singleton
