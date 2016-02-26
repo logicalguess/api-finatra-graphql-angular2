@@ -5,4 +5,8 @@
 
 ![ ](./screens/postman.png)
 
-Reference: [https://github.com/eddieLiu69/finatra-sangria-elastic4s-example](https://github.com/eddieLiu69/finatra-sangria-elastic4s-example)
+References: 
+
+[https://github.com/eddieLiu69/finatra-sangria-elastic4s-example](https://github.com/eddieLiu69/finatra-sangria-elastic4s-example)
+
+[https://github.com/tapatron/learning-finatra-slick-angular2](https://github.com/tapatron/learning-finatra-slick-angular2)
