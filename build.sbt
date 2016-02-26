@@ -1,3 +1,5 @@
+import sbt.Keys._
+
 name := "finatra-sangria-elastic4s-example"
 
 version := "1.0"
@@ -48,6 +50,9 @@ libraryDependencies ++= Seq(
   "com.sksamuel.elastic4s" %% "elastic4s-jackson" % versions.elastic4sjackson,
   "org.json4s" %% "json4s-native" % versions.json4s,
   "org.sangria-graphql" %% "sangria" % versions.sangria,
+
+  "org.apache.spark" %% "spark-core" % "1.4.0",
+  "org.apache.spark" %% "spark-mllib" % "1.4.0",
 
   "com.twitter.finatra" %% "finatra-http" % versions.finatra % "test",
   "com.twitter.finatra" %% "finatra-jackson" % versions.finatra % "test",
