@@ -42,6 +42,8 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
       items.length should be > 1
     }
 
+    var createdItemId: String = ""
+
     "create a new item" in {
 
       When("The api receives a POST request with a valid item")
@@ -52,11 +54,24 @@ class ItemsFeatureTest extends FeatureTest with Mockito with HttpTest with Befor
           """,
         andExpect = Created)
 
-      Then("the post is created and returned")
+      Then("the item is created and returned")
       response.getStatusCode() shouldBe 201
       val content = response.getContentString()
       val item = objectMapper.readValue[Item](content)
       item.title shouldBe "some item title"
+
+      createdItemId = item.id
+    }
+
+    "delete a post" in {
+
+      Given("an item exists")
+      When("The api receives a POST request with a valid post")
+      val response = server.httpDelete(path = s"/api/items/delete/${createdItemId}",
+        andExpect = Ok)
+
+      Then("the item is deleted")
+      response.getStatusCode() shouldBe 200
     }
   }
 }
