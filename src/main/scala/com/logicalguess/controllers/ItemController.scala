@@ -19,7 +19,7 @@ class ItemController @Inject()(itemService: ItemService)() extends Controller {
   post("/api/items/add") { request: ItemCreationModel =>
     println(request)
     val newItem = itemService.addItem(request)
-    response.created(newItem).toFuture
+    response.created(newItem)//.toFuture
   }
 
   def toResponse(outcome: Future[_], responseBuilder: ResponseBuilder, status: Status = Status.Ok): Future[Response] = {
