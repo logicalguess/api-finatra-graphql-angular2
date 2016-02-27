@@ -69,4 +69,6 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-core" % versions.mockito % "test",
   "org.scalatest" %% "scalatest" % versions.scalatest % "test",
   "org.specs2" %% "specs2" % versions.specs2 % "test"
+).map(
+  _.excludeAll(ExclusionRule(organization = "org.mortbay.jetty"))
 )
