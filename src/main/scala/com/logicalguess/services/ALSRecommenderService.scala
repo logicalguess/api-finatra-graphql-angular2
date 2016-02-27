@@ -25,7 +25,7 @@ class ALSRecommenderService @Inject()(sc: SparkContext) {
 
   val model: MatrixFactorizationModel = createModel
 
-  def getRecommendationsForUser(userId: Int) = {
+  def getRecommendationsForUser(userId: Int, count: Int) = {
     val products = dataProvider.getProductNames()
     val candidates = sc.parallelize(products.keys.toSeq)
 
@@ -33,7 +33,7 @@ class ALSRecommenderService @Inject()(sc: SparkContext) {
       .predict(candidates.map((userId, _)))
       .collect
       .sortBy(- _.rating)
-      .take(30)
+      .take(count)
   }
 
   def getItems(itemIds: List[Int]): List[String] = {
