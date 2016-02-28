@@ -26,7 +26,7 @@ class Builder extends RecommenderBuilder {
   }
 }
 
-case class MahoutRecommender @Inject() (sc: SparkContext, dataProvider: DataProvider) extends RecommenderService {
+case class MahoutRecommender @Inject() (dataProvider: DataProvider) extends RecommenderService {
 
   import scala.collection.JavaConverters._
 
@@ -53,6 +53,6 @@ case class MahoutRecommender @Inject() (sc: SparkContext, dataProvider: DataProv
   }
 
   override def getItems(itemIds: List[Int]): List[String] = {
-    List("abc") //TODO implement
+    itemIds.map(id => "" + id) //TODO implement
   }
 }

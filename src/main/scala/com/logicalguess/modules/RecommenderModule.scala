@@ -40,7 +40,7 @@ object RecommenderModule extends TwitterModule {
 
     recType() match {
       case REC_TYPE_ALS => ALSRecommenderService(sc, dataProvider)
-      case REC_TYPE_MAHOUT => MahoutRecommender(sc, dataProvider)
+      case REC_TYPE_MAHOUT => MahoutRecommender(dataProvider)
       case _ => throw new IllegalArgumentException("unknown data set")
     }
   }
