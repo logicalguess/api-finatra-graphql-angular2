@@ -12,6 +12,7 @@ import org.elasticsearch.index.get.GetField
 
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
 
 @Singleton
 class ElasticSearchItemService @Inject()
