@@ -53,8 +53,10 @@ libraryDependencies ++= Seq(
 
   "org.apache.spark" %% "spark-core" % "1.4.0",
   "org.apache.spark" %% "spark-mllib" % "1.4.0",
+  "org.apache.mahout" % "mahout-core" % "0.9",
 
-  "com.twitter.finatra" %% "finatra-http" % versions.finatra % "test",
+
+"com.twitter.finatra" %% "finatra-http" % versions.finatra % "test",
   "com.twitter.finatra" %% "finatra-jackson" % versions.finatra % "test",
   "com.twitter.inject" %% "inject-server" % versions.finatra % "test",
   "com.twitter.inject" %% "inject-app" % versions.finatra % "test",

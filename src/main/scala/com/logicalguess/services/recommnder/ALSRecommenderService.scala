@@ -14,7 +14,7 @@ import scala.util.Random
   */
 
 @Singleton
-class ALSRecommenderService @Inject()(sc: SparkContext, dataProvider: DataProvider) extends RecommenderService {
+case class ALSRecommenderService @Inject()(sc: SparkContext, dataProvider: DataProvider) extends RecommenderService {
 
   val model: MatrixFactorizationModel = createModel
 

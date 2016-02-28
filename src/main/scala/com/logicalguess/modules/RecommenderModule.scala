@@ -6,7 +6,7 @@ import com.google.inject.{Inject, Provides}
 import com.logicalguess.data.DataProvider
 import com.logicalguess.data.movielens.{MovieLens_100k, MovieLens_1m}
 import com.logicalguess.services._
-import com.logicalguess.services.recommnder.{RecommenderService, ALSRecommenderService}
+import com.logicalguess.services.recommnder.{MahoutRecommender, RecommenderService, ALSRecommenderService}
 import com.twitter.inject.TwitterModule
 import org.apache.spark.SparkContext
 
@@ -14,9 +14,14 @@ object RecommenderModule extends TwitterModule {
   flag("rec.count", 10, "number of recommendations to be returned")
 
   private val dataSet = flag("data.set", "100k", "1m or 100k")
+  private val recType = flag("rec.type", "als", "als or mahout")
+
 
   val MOVIE_LENS_1M = "1m"
   val MOVIE_LENS_100K = "100k"
+
+  val REC_TYPE_ALS = "als"
+  val REC_TYPE_MAHOUT = "mahout"
 
   @Singleton
   @Provides
@@ -32,6 +37,11 @@ object RecommenderModule extends TwitterModule {
   @Singleton
   @Provides
   def recommenderProvider(@Inject() sc: SparkContext, dataProvider: DataProvider): RecommenderService = {
-    new ALSRecommenderService(sc, dataProvider)
+
+    recType() match {
+      case REC_TYPE_ALS => ALSRecommenderService(sc, dataProvider)
+      case REC_TYPE_MAHOUT => MahoutRecommender(sc, dataProvider)
+      case _ => throw new IllegalArgumentException("unknown data set")
+    }
   }
 }
