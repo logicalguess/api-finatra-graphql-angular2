@@ -1,4 +1,4 @@
-package com.logicalguess.services
+package com.logicalguess.services.recommnder
 
 import javax.inject.{Inject, Singleton}
 

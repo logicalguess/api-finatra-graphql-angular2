@@ -3,7 +3,8 @@ package com.logicalguess.controllers
 import javax.inject.{Inject, Singleton}
 
 import com.logicalguess.graphQL.SchemaDefinition
-import com.logicalguess.services.{MemoryItemService, ItemService}
+import com.logicalguess.services.MemoryItemService
+import com.logicalguess.services.item.MemoryItemService
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.Controller
 import org.json4s.JsonAST.JString

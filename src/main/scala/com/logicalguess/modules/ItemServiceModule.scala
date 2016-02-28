@@ -3,7 +3,8 @@ package com.logicalguess.modules
 import javax.inject.Singleton
 
 import com.google.inject.Provides
-import com.logicalguess.services.{ElasticSearchItemService, MemoryItemService, ItemService}
+import com.logicalguess.services.item.{MemoryItemService, ItemService, ElasticSearchItemService}
+import com.logicalguess.services.MemoryItemService
 import com.twitter.inject.TwitterModule
 
 object ItemServiceModule extends TwitterModule {

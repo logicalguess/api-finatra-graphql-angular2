@@ -1,9 +1,9 @@
-package com.logicalguess.services
+package com.logicalguess.services.item
 
 import java.util.UUID
 import javax.inject.Singleton
 
-import com.logicalguess.domain.{ItemCreationModel, Item}
+import com.logicalguess.domain.{Item, ItemCreationModel}
 
 
 /**

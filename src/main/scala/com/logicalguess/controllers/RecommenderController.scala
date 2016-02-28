@@ -3,7 +3,7 @@ package com.logicalguess.controllers
 import javax.inject.Singleton
 
 import com.google.inject.Inject
-import com.logicalguess.services.RecommenderService
+import com.logicalguess.services.recommnder.RecommenderService
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.annotations.Flag
 import com.twitter.finatra.http.Controller

@@ -1,7 +1,8 @@
 package com.logicalguess.graphQL
 
 import com.logicalguess.domain.{Item, ItemCreationModel}
-import com.logicalguess.services.{ItemService, MemoryItemService, ElasticSearchItemService}
+import com.logicalguess.services.MemoryItemService
+import com.logicalguess.services.item.ItemService
 import sangria.schema._
 
 object SchemaDefinition {

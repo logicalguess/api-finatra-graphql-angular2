@@ -27,4 +27,6 @@ object SparkContextModule extends TwitterModule {
     new SparkContext(conf)
 
   }
+
+  //TODO add shutdown hook
 }

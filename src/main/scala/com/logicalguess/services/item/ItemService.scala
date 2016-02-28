@@ -1,4 +1,4 @@
-package com.logicalguess.services
+package com.logicalguess.services.item
 
 import com.logicalguess.domain.{Item, ItemCreationModel}
 

@@ -1,8 +1,7 @@
 package com.logicalguess.server
 
 import javax.inject.Inject
-
-import com.logicalguess.services.ElasticSearchItemService
+import com.logicalguess.services.item.ElasticSearchItemService
 import com.twitter.finatra.http.routing.HttpWarmup
 import com.twitter.finatra.utils.Handler
 
