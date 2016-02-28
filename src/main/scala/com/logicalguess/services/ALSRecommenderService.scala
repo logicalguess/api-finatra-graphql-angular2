@@ -2,7 +2,7 @@ package com.logicalguess.services
 
 import javax.inject.{Inject, Singleton}
 
-import com.logicalguess.data.movielens.{MovieLens_100k, MovieLens_1m}
+import com.logicalguess.data.DataProvider
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rating}
 import org.apache.spark.rdd.RDD
@@ -14,14 +14,7 @@ import scala.util.Random
   */
 
 @Singleton
-class ALSRecommenderService @Inject()(sc: SparkContext) {
-
-  //TODO make data provider configurable
-  //val dataDir = "src/main/resources/ml-1m"
-  //val dataProvider = MovieLens_1m(sc, dataDir)
-
-  val dataDir = "src/main/resources/ml-100k"
-  val dataProvider = MovieLens_100k(sc, dataDir)
+class ALSRecommenderService @Inject()(sc: SparkContext, dataProvider: DataProvider) extends RecommenderService {
 
   val model: MatrixFactorizationModel = createModel
 
