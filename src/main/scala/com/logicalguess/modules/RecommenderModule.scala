@@ -5,8 +5,7 @@ import javax.inject.Singleton
 import com.google.inject.{Inject, Provides}
 import com.logicalguess.data.DataProvider
 import com.logicalguess.data.movielens.{MovieLens_100k, MovieLens_1m}
-import com.logicalguess.services._
-import com.logicalguess.services.recommnder.{MahoutRecommender, RecommenderService, ALSRecommenderService}
+import com.logicalguess.services.recommender.{MahoutRecommender, RecommenderService, ALSRecommenderService}
 import com.twitter.inject.TwitterModule
 import org.apache.spark.SparkContext
 

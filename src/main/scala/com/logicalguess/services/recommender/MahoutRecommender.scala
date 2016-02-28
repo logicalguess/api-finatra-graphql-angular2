@@ -1,4 +1,4 @@
-package com.logicalguess.services.recommnder
+package com.logicalguess.services.recommender
 
 import java.io.File
 
