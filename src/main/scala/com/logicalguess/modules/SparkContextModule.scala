@@ -13,7 +13,7 @@ object SparkContextModule extends TwitterModule {
 
   @Singleton
   @Provides
-  def provideSparkContext(): SparkContext = {
+  def provideSparkContext(): Option[SparkContext] = {
     println("------------------spark context init-------------------")
 
     Logger.getLogger("org.apache.spark").setLevel(Level.OFF)
@@ -24,7 +24,7 @@ object SparkContextModule extends TwitterModule {
       .setAppName("InteractiveALS")
       .set("spark.executor.memory", memory())
       .set("spark.ui.enabled", "false")
-    new SparkContext(conf)
+    Some(new SparkContext(conf))
 
   }
 
