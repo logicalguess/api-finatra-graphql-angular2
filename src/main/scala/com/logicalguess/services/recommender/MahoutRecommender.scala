@@ -51,8 +51,4 @@ case class MahoutRecommender @Inject() (dataProvider: DataProvider) extends Reco
     val items: List[RecommendedItem] = recommender.recommend(userId, count).asScala.toList
     for (item <- items) yield Rating(userId, item.getItemID().toInt, item.getValue())
   }
-
-  override def getItems(itemIds: List[Int]): List[String] = {
-    itemIds.map(id => "" + id) //TODO implement
-  }
 }

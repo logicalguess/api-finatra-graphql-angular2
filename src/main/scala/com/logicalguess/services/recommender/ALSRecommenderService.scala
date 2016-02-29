@@ -29,11 +29,6 @@ case class ALSRecommenderService @Inject()(sc: SparkContext, dataProvider: DataP
       .take(count)
   }
 
-  def getItems(itemIds: List[Int]): List[String] = {
-    val products = dataProvider.getProductNames()
-    itemIds.map { id => products(id)}
-  }
-
   def createModel: MatrixFactorizationModel = {
     val rand = new Random()
     val ratings: RDD[(Long, Rating)] = dataProvider.getRatings().map { r => (rand.nextInt(10).toLong, r)}
