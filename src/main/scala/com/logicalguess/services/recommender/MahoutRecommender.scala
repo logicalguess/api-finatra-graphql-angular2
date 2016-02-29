@@ -1,21 +1,15 @@
 package com.logicalguess.services.recommender
 
-import java.io.File
-
-
 import com.google.inject.Inject
 import com.logicalguess.data.DataProvider
 import org.apache.mahout.cf.taste.eval.RecommenderBuilder
 import org.apache.mahout.cf.taste.impl.common.FastByIDMap
-import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecommenderEvaluator
 import org.apache.mahout.cf.taste.impl.model.{GenericDataModel, GenericUserPreferenceArray, GenericPreference}
-import org.apache.mahout.cf.taste.impl.model.file.FileDataModel
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity
 import org.apache.mahout.cf.taste.model.{DataModel, PreferenceArray}
 import org.apache.mahout.cf.taste.recommender.RecommendedItem
-import org.apache.spark.SparkContext
 import org.apache.spark.mllib.recommendation.Rating
 
 class Builder extends RecommenderBuilder {
